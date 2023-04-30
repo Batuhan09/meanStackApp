@@ -1,0 +1,12 @@
+<div class="wrapper">
+    <div id="formContent">
+      <h2 class="underlineHover"  routerLink="/dashboard/send-message/0"  routerLinkActive="active">+ </h2>
+      <h2 class="underlineHover"  routerLink="/dashboard/view-users"  routerLinkActive="active"> View Users </h2>
+      <h2 class="underlineHover"  routerLink="/dashboard/inbox"  routerLinkActive="active">Inbox</h2>
+      <h2 class="underlineHover"  routerLink="/dashboard/outbox"  routerLinkActive="active">Outbox</h2>
+      <h2 class="underlineHover"  routerLink="/dashboard/trash"  routerLinkActive="active">Trash</h2>
+      <h2 class="underlineHover"  routerLink="/dashboard/profile"  routerLinkActive="active">Profile</h2>
+      <input type="button" (click)="onLogout()" value="Logout" />
+      <router-outlet></router-outlet>
+    </div>
+  </div>

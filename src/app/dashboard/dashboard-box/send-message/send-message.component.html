@@ -1,0 +1,144 @@
+<div>
+  <div *ngIf="type=='view-users'" style="padding: 20px; display: flex;align-items: left;justify-content: left;flex-direction: column;">
+    <span class="edit" [routerLink]="['/dashboard/add-user/0']">
+      <button type="button" class="btn btn-success btn-sm">Add User</button>
+    </span>
+  </div>
+<div style="display: flex;align-items: center;justify-content: center;flex-direction: column;">
+    <table id="users">
+        <thead>
+            <tr>
+                <td (click)="clicked=true" colspan="5">
+                    <input style="width: 1100px;height: 40px;" type="text" name="search" [(ngModel)]="searchText" placeholder="Search User">
+                </td>
+            </tr>
+            <tr *ngIf="userSelected==false">
+                <th *ngIf="type=='view-users'" (click)="sort('id')">Id</th>
+                <th *ngIf="type=='view-users'" (click)="sort('userName')">Username</th>
+                <th *ngIf="type=='view-users'" (click)="sort('nameAndSurname')">name and surname</th>
+                <th *ngIf="type=='view-users'" (click)="sort('email')">email</th>
+                <th *ngIf="type=='view-users'" (click)="sort('gender')">gender</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="clicked==true || type=='view-users'">
+            <tr *ngFor="let user of users | filter:searchText">
+                <td *ngIf="type == 'view-users'">{{user._id}}</td>
+                <td *ngIf="clicked==true || type=='view-users'">{{user.userName}}</td>
+                <td *ngIf="type == 'view-users'">{{user.nameAndSurname}}</td>
+                <td *ngIf="type == 'view-users'">{{user.email}}</td>
+                <td *ngIf="type == 'view-users'">{{user.gender}}</td>
+                <td *ngIf="type == 'send-message'">
+                    <span *ngIf="clicked == true" (click)="clicked=false;sendMessage(user._id, user.userName)" >
+                        <button type="button" class="btn btn-outline-success" >Send Message</button>
+                      </span>   
+                </td>
+                <td *ngIf="type== 'view-users' ">
+                  <span [routerLink]="['/dashboard/edit-user/', user._id]">
+                    <button type="button" class="btn btn-outline-success" >Edit</button>
+                  </span>
+                </td>
+                  <td *ngIf="type== 'view-users'" >
+                    <span (click)="removeUser(user, i)">
+                      <button type="button" class="btn btn-outline-danger">Delete</button>
+                    </span>
+                  </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="type== 'view-users'">
+      <input *ngIf="counter>1" type="button" (click)="dec_counter();getUsers()" value="<" />
+      <input *ngIf="users?.length==10 || edited" type="button" (click)="inc_counter();getUsers()" value=">" />  
+    </div>  
+</div>
+<div *ngIf="clicked==false && type=='send-message'">
+    <div style="width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 100px;" class="card-body">
+        <!-- <a style="    padding: 25px;
+        font-size: 22px;
+        border-style: double;"> sending message to : {{selectedUserName}}</a> -->
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+          <label style="font-size: 22px;padding: 20px 20px 0 0;" for="inputName">To: {{selectedUserName}}</label>
+          <div class="form-group">
+              <label style="font-size: 22px;padding: 20px 20px 0 0;" for="inputName">Title:</label>
+              <input class="form-control" type="text" formControlName="title" />
+              <div
+                class="invalid-feedback"
+                *ngIf="submitted && myForm['title'].errors?.['required']"
+              >
+                Title is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label style="font-size: 22px;padding: 20px 20px 0 0;" for="inputEmail3">Content:</label>
+              <textarea rows="8" cols="100" class="form-control" type="text" formControlName="content" ></textarea>
+              <!-- error -->
+              <div
+                class="invalid-feedback"
+                *ngIf="submitted && myForm['content'].errors?.['required']"
+              >
+                Content is required
+               </div>
+            </div>
+            <div style="flex-direction: row; justify-content: space-between;padding: 40px 0 0 0;">
+                <span (click)="clicked=true" >
+                  <button type="button" class="btn btn-outline-danger">Cancel</button>
+                </span>
+                <button style="float: right;" class="btn btn-outline-success" type="submit">
+                  Send
+                </button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 
+<div *ngIf="type == 'view' ">
+<div style="padding: 20px; display: flex;align-items: left;justify-content: left;flex-direction: column;">
+  <span class="edit" [routerLink]="['/dashboard/add-user/0']">
+    <button type="button" class="btn btn-success btn-sm">Add User</button>
+  </span>
+</div>
+<div style="display: flex;align-items: center;justify-content: center;flex-direction: column;">
+  <table id="users" >
+    <thead>
+      <tr>
+        <th (click)="sort('id')">id</th>
+        <th (click)="sort('userName')">username</th>
+        <th (click)="sort('nameAndSurname')">user name and surname</th>
+        <th (click)="sort('email')">email</th>
+        <th (click)="sort('gender')">gender</th>
+        <th>delete user</th>
+        <th>update user</th>
+      </tr>
+    </thead>
+      <tr *ngFor="let user of users; let i = index">
+          <td>{{user._id}}</td>
+          <td>{{user.userName}}</td>
+          <td>{{user.nameAndSurname}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.gender}}</td>
+          <td>
+            <span class="edit-button" [routerLink]="['/dashboard/edit-user/', user._id]">
+              <button type="button" class="edit-button">Edit</button>
+            </span>
+          </td>
+            <td>
+              <span class="delete-button" (click)="removeUser(user, i)">
+                <button type="button" class="delete-button">Delete</button>
+              </span>
+            </td>
+      </tr>
+  </table>
+  <div>
+    <input *ngIf="counter>1" type="button" (click)="dec_counter();getUsers()" value="<" />
+    <input *ngIf="users?.length==10 || edited" type="button" (click)="inc_counter();getUsers()" value=">" />  
+  </div>  
+</div>
+</div> -->

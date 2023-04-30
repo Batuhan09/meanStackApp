@@ -1,0 +1,52 @@
+#users {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+  }
+  
+  #users td, #users th {
+    border: 2px solid #ddd;
+    padding: 10px;
+  }
+  
+  #users tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #users tr:hover {background-color: #ddd;}
+  
+  #users th {
+    padding-top: 18px;
+    padding-bottom: 18px;
+    text-align: left;
+    background-color: rgb(97, 106, 114);
+    color: white;
+  }
+
+  input[type=button], input[type=submit], input[type=reset] {
+    background-color: rgb(97, 106, 114);
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  button.delete-button{
+    background-color: rgb(99, 5, 5);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  button.edit-button{
+    background-color: #198754;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+  }

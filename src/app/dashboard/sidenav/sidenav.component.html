@@ -1,0 +1,60 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+    <mat-toolbar class="example-toolbar" style="height: 100px;justify-content: space-between;background-color: aliceblue;">
+      <div style="display: flex;">
+        <button style="background-color: black;" mat-icon-button (click)="snav.toggle()"><mat-icon style="color: white;">menu</mat-icon></button>
+        <h1 class="example-app-name">Chat App</h1>  
+      </div>
+      <div class="logout">
+      <div routerLink="/dashboard/profile" style="height: 60px;" class="btn btn-info">
+        <mat-icon style="margin-top: 10px;width: 20px;height: 20px;">perm_identity</mat-icon>
+        <a>&nbsp;&nbsp;&nbsp;    </a>
+        <a>{{currentUserName}}</a>
+        <a>&nbsp;&nbsp;&nbsp;    </a>
+        <a> </a>
+      </div>
+      <br>
+      <a>&nbsp;&nbsp;&nbsp;    </a>
+        <input class="btn btn-secondary" type="button" (click)="onLogout()" value="Logout >> " />
+      </div>
+    </mat-toolbar>
+  
+    <mat-sidenav-container class="example-sidenav-container"
+                           [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+      <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                   [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+        <mat-nav-list>
+            <div class="sidebar-element" [routerLink]="['/dashboard/', 'send-message']">
+                <mat-icon class="child">add</mat-icon>
+                <h2 class="child"  routerLinkActive="active">Send Message </h2>
+            </div>
+            <div *ngIf="is_admin" class="sidebar-element" [routerLink]="['/dashboard/', 'view-users']">
+                <mat-icon class="child">supervisor_account</mat-icon>
+                <h2 class="child" routerLinkActive="active"> View Users </h2>
+            </div>
+            <div class="sidebar-element">
+                <mat-icon class="child">move_to_inbox</mat-icon>
+                <h2 class="child"  [routerLink]="['/dashboard/message/', 'inbox']"  routerLinkActive="active">Inbox</h2>
+            </div>
+            <div class="sidebar-element">
+                <mat-icon class="child">send</mat-icon>
+                <h2 class="child"  [routerLink]="['/dashboard/message/', 'outbox']"  routerLinkActive="active">Outbox</h2>
+            </div>
+            <div class="sidebar-element">
+                <mat-icon class="child">delete</mat-icon>
+                <h2 class="child"  routerLink="/dashboard/trash"  routerLinkActive="active">Trash</h2>        
+            </div>
+            <div *ngIf="is_admin" class="sidebar-element" routerLink="/dashboard/view-logs">
+              <mat-icon class="child">file_copy</mat-icon>
+              <h2 class="child" routerLinkActive="active"> View Logs </h2>
+          </div>
+        </mat-nav-list>
+      </mat-sidenav>
+  
+      <mat-sidenav-content>
+        <div style="display: flext;align-items: center;justify-content:center">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+  

@@ -1,0 +1,72 @@
+
+
+<div>
+  <img style="width: 84%;" src="../../../assets/image/chatapp.webp" id="icon" alt="User Icon" />
+<form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
+    <input type="text" #userName="ngModel" [(ngModel)]="userService.selectedUser.userName" name="userName" placeholder="Username"
+    required  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !userName.valid }">
+    <div *ngIf="signUpForm.submitted && !userName.valid">
+      <label class="validation-message">This field is required.</label>
+    </div>
+    <input type="text" #nameAndSurname="ngModel" [(ngModel)]="userService.selectedUser.nameAndSurname" name="nameAndSurname" placeholder="nameAndSurname"
+    required  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !nameAndSurname.valid }">
+    <div *ngIf="signUpForm.submitted && !nameAndSurname.valid">
+      <label class="validation-message">This field is required.</label>
+    </div>
+    <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email"
+    required [pattern]="emailRegex"  [ngClass]="{'invalid-textbox' :signUpForm.submitted && !email.valid }">
+    <div *ngIf="signUpForm.submitted && email.errors">
+      <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
+      <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
+    </div>
+    <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="Password"
+    minlength="4" required [ngClass]="{'invalid-textbox' :signUpForm.submitted && !password.valid }">
+    <div *ngIf="signUpForm.submitted && password.errors">
+      <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+      <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 4 characters.</label>
+    </div>
+    <mat-form-field style="width: 384px;" appearance="fill">
+      <!-- <mat-label>Birthdate</mat-label> -->
+      <input matInput #birthdate="ngModel" [(ngModel)]="userService.selectedUser.birthdate" [matDatepicker]="picker"
+       name="birthdate" placeholder="Birthdate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <!-- <label class="custom-label">gender</label> -->
+                <select class="custom-select form-control"
+                style="width: 384px;
+                margin: auto;
+                color: grey;
+                background-color: #f6f6f6;
+                height: 45px;"
+                matInput #gender="ngModel" [(ngModel)]="default" 
+                name="gender" 
+                >
+                  <option value="M">
+                    M
+                  </option>
+                  <option value="F">
+                    F
+                  </option>
+                </select>
+                <!-- error -->
+                <div
+                  class="invalid-feedback"
+                  *ngIf="signUpForm.submitted && gender.errors"
+                >
+                  Choose gender.
+                </div>
+    <input type="submit" value="Sign Up">
+  </form>
+  
+  <!-- Success message -->
+  <div class="success" *ngIf="showSucessMessage">
+    Saved successfully
+  </div>
+  
+  <!-- Error message -->
+  <div class="alert" *ngIf="serverErrorMessages">
+    {{serverErrorMessages}}
+  </div>
+  </div>

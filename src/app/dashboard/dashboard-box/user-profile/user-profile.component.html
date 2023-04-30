@@ -1,0 +1,46 @@
+<div style="display: flex;align-items: center;justify-content: center;flex-direction: column;">
+    <td colspan="2"><img style="width: 330px;height: 350px" src="./../../../../assets/image/anonymous-user-circle-icon.jpg"></td>
+
+    <table id="users" *ngIf="userDetails" class="table-fill">
+    <thead>
+        <tr>
+            <th colspan="2" class="text-center">User Profile</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Username</td>
+            <td>{{userDetails.userName}}</td>
+        </tr>
+        <tr>
+            <td>Name and Surname</td>
+            <td>{{userDetails.nameAndSurname}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{userDetails.email}}</td>
+        </tr>
+        <tr>
+            <td>gender</td>
+            <td>{{userDetails.gender}}</td>
+        </tr>
+        <tr>
+            <td>role</td>
+            <td>{{userDetails.role}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{userDetails.email}}</td>
+        </tr>
+        <tr>
+            <td>birthdate</td>
+            <td>{{userDetails.birthdate}}</td>
+        </tr>
+    </tbody>
+</table>
+<div style="padding: 6px;">
+    <span style="margin: auto;" class="btn btn-success" [routerLink]="['/dashboard/edit-user/', currentUserId]">
+        <button type="button" class="btn btn-success">Edit</button>
+    </span>
+</div>
+</div>

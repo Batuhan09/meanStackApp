@@ -1,0 +1,103 @@
+<div style="display: flex;align-items: center;justify-content: center;flex-direction: column;padding: 50px;">
+    <h1>INBOX TRASH</h1>
+    <table id="users">
+        <thead>
+            <tr>
+                <td (click)="sortInboxTrash('from')">From</td>
+                <td (click)="sortInboxTrash('to')">To</td>
+                <td (click)="sortInboxTrash('title')">Title</td>
+                <td (click)="sortInboxTrash('content')">Content</td>
+                <td>
+                    <a>time&nbsp;&nbsp;</a>
+                    <button style="background-color: black;color: white;" (click)="setIsReversedInbox();getInboxMessages()">
+                      <mat-icon>sort</mat-icon>
+                     </button>
+                </td>
+                <td>Delete Message</td>
+            </tr>
+        </thead>
+        <tr *ngFor="let inboxMessage of inboxTrash; let i = index">
+            <td>{{inboxMessage?.fromName}}</td>
+            <td>{{inboxMessage?.toName}}</td>
+            <td style="max-width: 100px;text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;">{{inboxMessage?.title}}</td>
+            <td style="max-width: 100px;text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;">{{inboxMessage?.content}}</td>
+            <td>{{inboxMessage?.createdAt}}</td>
+            <td>
+                <span class="delete" (click)="removeMessage(inboxMessage, i, 0)">
+                    <button type="button" class="btn btn-outline-danger">Delete</button>
+                </span>
+            </td>
+            <td>
+                <button class="btn btn-outline-primary" (click)="openDialog(inboxMessage?.title,inboxMessage?.content)">
+                    display message
+                </button>
+            </td>
+            <td>
+                <button style="background-color: grey;border:0ch" class="btn btn-primary"  (click)="removeFromTrash(inboxMessage, i, 0)">
+                <mat-icon>restore_from_trash</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <input *ngIf="inboxCounter>1" type="button" (click)="decInboxCounter();getInboxMessages()" value="<" />
+        <input *ngIf="inboxTrash?.length==5" type="button" (click)="incInboxCounter();getInboxMessages()" value=">" />
+    </div>
+</div>
+
+<div style="display: flex;align-items: center;justify-content: center;flex-direction: column;padding: 50px;">
+    <h1>OUTBOX TRASH</h1>
+
+    <table id="users">
+        <thead>
+            <tr>
+                <td (click)="sortOutboxTrash('from')">From</td>
+                <td (click)="sortOutboxTrash('to')">To</td>
+                <td (click)="sortOutboxTrash('title')">Title</td>
+                <td (click)="sortOutboxTrash('content')">Content</td>
+                <td>
+                    <a>time&nbsp;&nbsp;</a>
+                    <button style="background-color: black;color: white;" (click)="setIsReversedOutbox();getOutboxMessages()">
+                      <mat-icon>sort</mat-icon>
+                     </button>
+                </td>
+                <td>Delete Message</td>
+            </tr>
+        </thead>
+        <tr *ngFor="let outboxMessage of outboxTrash; let idx = index">
+            <td>{{outboxMessage?.fromName}}</td>
+            <td>{{outboxMessage?.toName}}</td>
+            <td style="max-width: 100px;text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;">{{outboxMessage?.title}}</td>
+            <td style="max-width: 100px;text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;">{{outboxMessage?.content}}</td>
+            <td>{{outboxMessage?.createdAt}}</td>
+            <td>
+                <span class="delete" (click)="removeMessage(outboxMessage, idx, 1)">
+                    <button type="button" class="btn btn-outline-danger">Delete</button>
+                </span>
+            </td>
+            <td>
+                <button class="btn btn-outline-primary" (click)="openDialog(outboxMessage?.title,outboxMessage?.content)">
+                    display message
+                </button>
+            </td>
+            <td>
+                <button style="background-color: grey;border:0ch" class="btn btn-primary"  (click)="removeFromTrash(outboxMessage, idx, 1)">
+                <mat-icon>restore_from_trash</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <input *ngIf="outboxCounter>1" type="button" (click)="decOutboxCounter();getOutboxMessages()" value="<" />
+        <input *ngIf="outboxTrash?.length==5" type="button" (click)="incOutboxCounter();getOutboxMessages()"
+            value=">" />
+    </div>
+</div>

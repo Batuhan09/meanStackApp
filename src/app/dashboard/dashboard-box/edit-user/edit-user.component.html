@@ -1,0 +1,151 @@
+<div class="row justify-content-center">
+    <div style="padding: 40px;width: 500px;" class="col-md-4 register-employee">
+      <!-- form card register -->
+      <div style=" display: flex;align-items: center;justify-content: center;flex-direction: column;" class="card card-outline-secondary">
+        <div class="card-header">
+          <h3 *ngIf="id!=0" class="mb-0">Edit User</h3>
+          <h3 *ngIf="id==0" class="mb-0">Add User</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label class="custom-label" for="inputName">Username</label>
+                <input style="padding: 1rem 1rem;background-color: rgba(0,0,0,.04);" class="custom-input"  type="text" formControlName="userName" />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="submitted && myForm['userName'].errors?.['required']"
+                >
+                  <a>Name is required</a>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="custom-label" for="inputEmail3">Email</label>
+                <input style="padding: 1rem 1rem;background-color: rgba(0,0,0,.04);" class="custom-input" type="text" formControlName="email" />
+                <!-- error -->
+                <div
+                  class="invalid-feedback"
+                  *ngIf="submitted && myForm['email'].errors?.['required']"
+                >
+                  Enter your email.
+                </div>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="submitted && myForm['email'].errors?.['pattern']"
+                >
+                  Enter valid email.
+                </div>
+              </div>
+              <div style="padding: 2px;" class="from-group"  >
+                <mat-form-field class="form-group" style="width: 384px; background-color: white;" appearance="fill">
+                  <!-- <mat-label>Birthdate</mat-label> -->
+                  <input matInput class="custom-input" formControlName="birthdate" [matDatepicker]="picker"
+                   name="birthdate" placeholder="Birthdate">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <label class="custom-label" for="inputPassword3">gender</label>
+                <select
+                style="background-color: rgba(0,0,0,.04);"
+                  class="custom-select form-control"
+                  (change)="updateProfileGender($event.target.value)"
+                  formControlName="gender"
+                >
+                  <option value="">Choose...</option>
+                  <option
+                    *ngFor="let gender of UserGender"
+                    value="{{ gender }}"
+                  >
+                    {{ gender }}
+                  </option>
+                </select>
+                <!-- error -->
+                <div
+                  class="invalid-feedback"
+                  *ngIf="submitted && myForm['gender'].errors?.['required']"
+                >
+                  Choose gender.
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="custom-label" for="inputVerify3">Name and Surname</label>
+                <input
+                style="padding: 1rem 1rem;background-color: rgba(0,0,0,.04);"
+                class="custom-input"
+                  type="text"
+                  formControlName="nameAndSurname"
+                />
+                <!-- error -->
+                <div
+                  class="invalid-feedback"
+                  *ngIf="submitted && myForm['nameAndSurname'].errors?.['required']"
+                >
+                  Enter your name and surname.
+                </div>
+                <!-- <div
+                  class="invalid-feedback"
+                  *ngIf="submitted && myForm['phoneNumber'].errors?.['pattern']"
+                >
+                  Enter Numbers Only
+                </div> -->
+              <div *ngIf="id==0" class="form-group">
+                <label class="custom-label" for="inputVerify3">Password</label>
+                <input style="padding: 1rem 1rem;background-color: rgba(0,0,0,.04);"
+                class="custom-input"
+                type="password"
+                formControlName="password"
+                *ngIf="id==0"
+                minlength="4" required >
+                <div 
+                class="invalid-feedback"
+                *ngIf=" submitted && myForm['password'].errors?.['required']">
+                  
+                  <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+                </div>
+                <div 
+                class="invalid-feedback"
+                *ngIf=" submitted && myForm['password'].errors?.['minlength']">
+                  <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 4 characters.</label>
+                </div>
+              </div>
+                <div class="form-group">
+                  <label class="custom-label" for="inputPassword3">role</label>
+                  <select
+                    style="background-color: rgba(0,0,0,.04);"
+                    class="custom-select form-control"
+                    (change)="updateProfileRole($event.target.value)"
+                    formControlName="role"
+                  >
+                    <option value="">Choose...</option>
+                    <option
+                      *ngFor="let role of UserRole"
+                      value="{{ role }}"
+                    >
+                      {{ role }}
+                    </option>
+                  </select>
+                  <!-- error -->
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="submitted && myForm['role'].errors?.['required']"
+                  >
+                    Choose role.
+                  </div></div></div>
+            <div *ngIf="id!=0" class="form-group">
+              <button class="btn btn-success btn-lg btn-block" type="submit">
+                Update
+              </button>   
+            </div>
+            <div *ngIf="id==0" class="form-group">
+              <button class="btn btn-success btn-lg btn-block" type="submit">
+                Add
+              </button>   
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- form  -->
+    </div>
+  </div>

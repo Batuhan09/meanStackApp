@@ -1,0 +1,36 @@
+  <div style="display: flex;align-items: center;justify-content: center;flex-direction: column;">
+    <table id="users" >
+      <thead>
+        <tr>
+          <th (click)="sort('userId')">User Id</th>
+          <th (click)="sort('userName')">Username</th>
+          <th (click)="sort('actionType')">Action Type</th>
+          <th (click)="sort('dataType')">Data Type</th>
+          <th (click)="sort('ip')">ip</th>
+          <th (click)="sort('browser')">browser</th>
+          <th>
+            <a>time&nbsp;&nbsp;</a>
+            <button style="background-color: white;color: black;" (click)="setIsReversed();getLogs()">
+              <mat-icon>sort</mat-icon>
+             </button>
+          </th>
+          <th>status</th>
+        </tr>
+      </thead>
+        <tr *ngFor="let log of logs; let i = index">
+            <td>{{log.userId}}</td>
+            <td>{{log.userName}}</td>
+            <td>{{log.actionType}}</td>
+            <td>{{log.dataType}}</td>
+            <td>{{log.ip}}</td>
+            <td>{{log.browser}}</td>
+            <td>{{log.time}}</td>
+            <td>{{log.status}}</td>
+        </tr>
+    </table>
+    <div>
+      <input *ngIf="counter>1" type="button" (click)="dec_counter();getLogs()" value="<" />
+      <input *ngIf="logs?.length==10 || edited" type="button" (click)="inc_counter();getLogs()" value=">" />  
+    </div>  
+  </div>
+  

@@ -1,0 +1,42 @@
+<div style="display: flex;align-items: center;justify-content: center;flex-direction: column;padding: 50px;">
+  <table id="users">
+    <thead>
+      <tr>
+        <th (click)="sort('from')">From</th>
+        <th (click)="sort('to')">To</th>
+        <th (click)="sort('title')">Title</th>
+        <th (click)="sort('content')">Content</th>
+        <th>
+          <a>time&nbsp;&nbsp;</a>
+          <button style="background-color: white;color: black;" (click)="setIsReversed();getMessages()">
+            <mat-icon>sort</mat-icon>
+           </button>
+        </th>
+        <th>Delete Message</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let message of messages; let i = index">
+      <td>{{message?.fromName}}</td>
+      <td>{{message?.toName}}</td>
+      <td style="max-width: 100px;text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;">{{message?.title}}</td>
+      <td style="max-width: 100px;text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;">{{message?.content}}</td>
+      <td>{{message?.createdAt}}</td>
+      <td><span (click)="removeMessage(message, i)">
+          <button type="button" class="btn btn-outline-danger" >Delete</button>
+        </span></td>
+      <td>
+        <button class="btn btn-outline-info" (click)="openDialog(message?.title,message?.content)">
+          display message
+        </button>
+      </td>
+    </tr>
+  </table>
+  <div>
+    <input *ngIf="counter>1" type="button" (click)="dec_counter();getMessages()" value="<" />
+    <input *ngIf="messages?.length==5" type="button" (click)="inc_counter();getMessages()" value=">" />
+  </div>
+</div>
